@@ -1,0 +1,386 @@
+html {
+  background-color: black;
+  position: relative;
+  font-family: aktiv-grotesk, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h1 {
+  color: white;
+}
+
+#page-container {
+  position: relative;
+}
+
+#inputField {
+  background-color: black !important;
+  color: white;
+  border-style: none;
+  height: 25px;
+  width: 300px;
+  border: 0.5px solid white;
+  border-radius: calc(35px / 8);
+  padding: 10px;
+  margin-right: 10px;
+  margin-bottom: 1rem;
+}
+
+#inputField:valid {
+  background-color: black;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: white !important;
+}
+
+button {
+  background-color: black;
+  color: white;
+  border-style: none;
+  height: 45px;
+  width: auto;
+  border: 0.5px solid white;
+  border-radius: calc(35px / 8);
+  padding: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 500px;
+}
+
+button:hover {
+  opacity: 0.5;
+}
+
+#loader {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 20px;
+}
+
+#weather-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#weather {
+  border-radius: 20px;
+  max-width: 80%;
+  position: relative;
+}
+
+#input {
+  display: flex;
+  align-items: center;
+}
+
+#weather-form {
+  //padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 50px;
+  position: relative;
+}
+
+#weather-form h1 {
+  font-style: italic;
+}
+
+#day-card-container {
+  max-width: calc(100vw - 1rem);
+  overflow-x: scroll;
+  display: flex;
+  align-items: center;
+  column-gap: 0.875rem;
+  //padding-left: 20px;
+  padding-right: 20px;
+}
+
+#day-card {
+  background-color: black;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-radius: 0.5rem;
+  min-width: 200px;
+  border: 0.5px solid white;
+  max-height: 350px;
+  min-height: 350px;
+}
+
+#day-card:hover {
+  cursor: pointer;
+}
+
+.card-image {
+  margin-top: 20px;
+  width: 60px;
+  height: 60px;
+  //background-color: red;
+}
+
+#weather-text {
+  min-width: 100%;
+  text-align: center;
+  color: white;
+  font-family: aktiv-grotesk, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  max-height: 1px;
+  opacity: 0.5;
+}
+
+#day-text {
+  min-width: 100%;
+  text-align: center;
+  color: white;
+  font-family: aktiv-grotesk, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  margin: 0;
+  padding: 0;
+}
+
+#day-card h2,
+h3,
+h4 {
+  min-width: 100%;
+  text-align: center;
+  color: white;
+  font-family: aktiv-grotesk, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  margin: 0;
+  padding: 0;
+}
+
+#card-detail-container {
+  min-height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+#card-detail {
+  max-height: 500px;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-radius: 15px;
+  background-color: black;
+  border: 1px solid rgba(1, 1, 1, 0.5);
+  padding: 2rem;
+}
+
+#card-detail h1,h3,h4 {
+  min-width: 100%;
+  text-align: center;
+  padding-top: 10px;
+  //padding-bottom: 10px;
+}
+
+#card-detail h3 {
+  min-width: 100%;
+  text-align: center;
+  padding-top: 10px;
+  //padding-bottom: 0.5rem;
+  opacity: 0.5;
+}
+
+#card-detail button {
+  margin-top: 2rem;
+}
+
+//Arrows
+#arrow-left {
+  position: absolute;
+  left: -20px;
+  transform: translateX(-10px) rotate(180deg);
+}
+
+#arrow-left:hover,
+#arrow-right:hover {
+  cursor: pointer;
+}
+
+#arrow-right {
+  position: absolute;
+  right: 0;
+  transform: translateX(35px);
+  cursor: pointer;
+  right: 5px;
+}
+
+#weather-list {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  list-style-type: none;
+}
+
+#weather-list li {
+  color: white;
+  width: 100%;
+  position: relative;
+  min-height: 35px;
+}
+
+#list-sub {
+  max-width: 50px;
+  float: left;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  position: absolute;
+  left: 0;
+  opacity: 0.5;
+}
+
+#list-header {
+  max-width: 50px;
+  float: left;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  position: absolute;
+  right: 0;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  font-size: 0.75rem;
+  text-align: center;
+  font-family: aktiv-grotesk, sans-serif;
+  font-weight: 100;
+  font-style: normal;
+  padding-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.hidden-container-state {
+  border: 1px solid white;
+  background-color: black !important;
+  border-radius: calc(35px / 8);
+}
+
+.hidden-card-state {
+  border: 0px !important;
+  background-color: black !important;
+}
+
+#empty-state {
+  position: absolute;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+}
+
+.empty-state-state {
+  display: hidden;
+  visibility: hidden;
+}
+
+#empty-state h1 {
+  color: white;
+  font-size: 1.5rem;
+  width: 35%;
+  margin: 0 auto;
+}
+
+#empty-state h2 {
+  color: white;
+  font-size: 1rem;
+  opacity: 0.5;
+  font-weight: 400;
+  width: 25%;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+
+.loader-state {
+  //background-color: red;
+}
+
+#site-link {
+  color: white;
+}
+
+#temperature {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+#temperature h1 {
+  display: inline;
+  max-width: 50%;
+  padding: 1rem 0.5rem 1rem 0.5rem;
+}
+
+@media only screen and (max-width: 600px) {
+  #weather-form h1 {
+    font-style: italic;
+    font-size: 1.5rem;
+  }
+
+  #loader {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 20px;
+  }
+
+  #card-detail {
+    max-height: 500px;
+    max-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    border-radius: 15px;
+    background-color: black;
+    border: 1px solid rgba(1, 1, 1, 0.5);
+    padding: 2rem;
+}
+  #footer {
+    font-size: 0.65rem;
+  }
+
+  #empty-state h1 {
+    color: white;
+    font-size: 1.5rem;
+    width: 75%;
+    margin: 0 auto;
+}
+
+#empty-state h2 {
+  color: white;
+  font-size: 1rem;
+  opacity: 0.5;
+  font-weight: 400;
+  width: 50%;
+  margin: 0 auto;
+}
+
+}
