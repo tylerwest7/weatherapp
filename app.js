@@ -3,12 +3,14 @@ const app = express();
 
 const path = require("path");
 
+//const buildpath = path.resolve(__dirname + '/client', 'build', 'index.html');
+
 const port = process.env.PORT || 2000;
 
 if(process.env.NODE_ENV == "production") {
     app.use(express.static('build'));
     app.get('*', (req,res) => {
-        req.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+        req.sendFile(path.resolve(__dirname + '/client', 'build', 'index.html'));
     })
 }
 
