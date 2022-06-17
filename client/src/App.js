@@ -9,7 +9,7 @@ import CardDetail from './Components/CardDetail';
 function App() {
 
   //Hello world
-
+  
   const apiKey = "8bd04b4c4bc8f493a35b227dba34ae78";
 
   const [latitude, setLatitude] = useState(0);
