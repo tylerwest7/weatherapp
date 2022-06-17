@@ -8,13 +8,14 @@ const path = require("path");
 const port = process.env.PORT || 2000;
 
 if(process.env.NODE_ENV == "production") {
-    app.use(express.static('build'));
+    app.use(express.static('client/build'));
     app.get('*', (req,res) => {
-        req.sendFile(path.resolve(__dirname + '/client', 'build', 'index.html'));
+        req.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
     })
 }
 
 app.listen(port, (err) => {
     if (err) return console.log(err);
     console.log(`server running on port ${port}`);
+    //console.log(`The build path is ${buildpath}`)
 })
