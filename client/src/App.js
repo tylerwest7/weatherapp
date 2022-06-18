@@ -83,22 +83,6 @@ function App() {
       loaderAnim();
     },[])
 
-////////////////
-    // function getPosition() {
-    //   // Simple wrapper
-    //   return new Promise((res, rej) => {
-    //       navigator.geolocation.getCurrentPosition(res, rej);
-    //   });
-    // }
-
-    // function main() {
-    //   getPosition().then(console.log('Hello world heres some coordinates')); // wait for getPosition to complete
-    // }
-
-    // main();
-
-/////////////////////////
-
   //Check for location permissions
   const checkPermissions = () => {
 
@@ -111,15 +95,12 @@ function App() {
 
       //If access is granted
       getLocation();
-      console.log('should be getting location');
-
 
     }else if(isSafari || isMobile){
       console.log("mobile");
       console.log('Browser is safari');
       //If access is granted
       getLocation();
-      console.log('should be getting location');
     }else{
     //Browser is chrome or other than safari
       console.log('Browser is chrome');
@@ -153,6 +134,18 @@ function App() {
   var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
   if(isSafari){
 
+ const checkLocationStatus = () => {
+  navigator.geolocation.watchPosition(function(position) {
+    return true;
+  },
+  function(error) {
+    if (error.code == error.PERMISSION_DENIED)
+    return false;
+  });
+  }
+
+  checkLocationStatus();
+
   //Safari
   function getPosition() {
     return new Promise((res, rej) => {
@@ -167,12 +160,21 @@ function App() {
       console.log(`https://api.openweathermap.org/data/2.5/onecall?lat=${currentLocation.latitude}&lon=${currentLocation.longitude}&units=imperial&appid=${apiKey}`);
       getWeather(currentLocation);
       setUsingCurrentLocation(true);
+    }).then((rej) => {
+      console.log(rej);
     }).catch((rej) => {
       console.log(rej);
+      displayEmptyState();
     })
   }
 
   main();
+
+  function displayEmptyState(){
+    console.log('Displaying error state');
+    alert('Your location is currently disabled! Enable your location to get weather in your area.');
+  }
+
 
 }else{
 
