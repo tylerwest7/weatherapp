@@ -75,8 +75,41 @@ function App() {
     console.log('loading sunny anim');
   }
 
+
+    //State changed
+    useEffect(() => {
+      checkPermissions();
+      setLoading(true);
+      loaderAnim();
+    },[])
+
+////////////////
+    function getPosition() {
+      // Simple wrapper
+      return new Promise((res, rej) => {
+          navigator.geolocation.getCurrentPosition(res, rej);
+      });
+    }
+
+    function main() {
+      getPosition().then(console.log('Hello world heres some coordinates')); // wait for getPosition to complete
+    }
+
+    main();
+/////////////////////////
+
   //Check for location permissions
   const checkPermissions = () => {
+
+
+    //Check if browser is safari or chrome
+    var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
+
+    if(isSafari){
+      console.log('Browser is safari');
+    }else{
+      console.log('Browser is chrome');
+
     navigator.permissions.query({name:'geolocation'}).then(function(result) {
       // Will return ['granted', 'prompt', 'denied']
       console.log(result.state);
@@ -92,21 +125,28 @@ function App() {
       }
     });
   }
+  
+  }
 
-  //State changed
-  useEffect(() => {
-    checkPermissions();
-    setLoading(true);
-    loaderAnim();
-  },[])
 
  //Get location
  const getLocation = async () => {
+
+
+  //Safari check locations
+  navigator.geolocation.getCurrentPosition(showMap);
+
+  function showMap(position) {
+    console.log('Hello');
+  }
+  /////////
+
   setLoading(true);
   if(animationDestroyed){
     loaderAnim();
   }
 
+  //Get current location
   await navigator.geolocation.getCurrentPosition((position)=> {
     setLoading(false);
     const currentLocation = position.coords;
@@ -114,6 +154,7 @@ function App() {
     getWeather(currentLocation);
     setUsingCurrentLocation(true);
   })
+
  }
 
   //Get custom location
