@@ -74,6 +74,20 @@ function App() {
     })
     console.log('loading sunny anim');
   }
+////////////////
+    function getPosition() {
+      // Simple wrapper
+      return new Promise((res, rej) => {
+          navigator.geolocation.getCurrentPosition(res, rej);
+      });
+    }
+
+    function main() {
+      getPosition().then(console.log('Hello world heres some coordinates')); // wait for getPosition to complete
+    }
+
+    main();
+/////////////////////////
 
   //Check for location permissions
   const checkPermissions = () => {
@@ -102,11 +116,22 @@ function App() {
 
  //Get location
  const getLocation = async () => {
+
+
+  //Safari check locations
+  navigator.geolocation.getCurrentPosition(showMap);
+
+  function showMap(position) {
+    console.log('Hello');
+  }
+  /////////
+
   setLoading(true);
   if(animationDestroyed){
     loaderAnim();
   }
 
+  //Get current location
   await navigator.geolocation.getCurrentPosition((position)=> {
     setLoading(false);
     const currentLocation = position.coords;
@@ -114,6 +139,7 @@ function App() {
     getWeather(currentLocation);
     setUsingCurrentLocation(true);
   })
+
  }
 
   //Get custom location
