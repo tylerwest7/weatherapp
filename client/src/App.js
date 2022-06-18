@@ -104,6 +104,7 @@ function App() {
 
     //Check if browser is safari or chrome
     var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
+    var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
     if(isSafari){
       console.log('Browser is safari');
@@ -113,6 +114,12 @@ function App() {
       console.log('should be getting location');
 
 
+    }else if(isSafari || isMobile){
+      console.log("mobile");
+      console.log('Browser is safari');
+      //If access is granted
+      getLocation();
+      console.log('should be getting location');
     }else{
     //Browser is chrome or other than safari
       console.log('Browser is chrome');
@@ -211,9 +218,6 @@ function App() {
           let dayInt = new Date(day.dt*1000).toDateString();
           newDays.push(dayInt);
         })
-
-        //Loading set to false
-        //setLoading(false);
 
         setDays(newDays);
 
