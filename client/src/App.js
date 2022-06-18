@@ -167,6 +167,8 @@ function App() {
       console.log(`https://api.openweathermap.org/data/2.5/onecall?lat=${currentLocation.latitude}&lon=${currentLocation.longitude}&units=imperial&appid=${apiKey}`);
       getWeather(currentLocation);
       setUsingCurrentLocation(true);
+    }).catch((rej) => {
+      console.log(rej);
     })
   }
 
