@@ -84,18 +84,19 @@ function App() {
     },[])
 
 ////////////////
-    function getPosition() {
-      // Simple wrapper
-      return new Promise((res, rej) => {
-          navigator.geolocation.getCurrentPosition(res, rej);
-      });
-    }
+    // function getPosition() {
+    //   // Simple wrapper
+    //   return new Promise((res, rej) => {
+    //       navigator.geolocation.getCurrentPosition(res, rej);
+    //   });
+    // }
 
-    function main() {
-      getPosition().then(console.log('Hello world heres some coordinates')); // wait for getPosition to complete
-    }
+    // function main() {
+    //   getPosition().then(console.log('Hello world heres some coordinates')); // wait for getPosition to complete
+    // }
 
-    main();
+    // main();
+
 /////////////////////////
 
   //Check for location permissions
@@ -106,7 +107,14 @@ function App() {
 
     if(isSafari){
       console.log('Browser is safari');
+
+      //If access is granted
+      getLocation();
+      console.log('should be getting location');
+
+
     }else{
+    //Browser is chrome or other than safari
       console.log('Browser is chrome');
 
     navigator.permissions.query({name:'geolocation'}).then(function(result) {
@@ -127,24 +135,39 @@ function App() {
   
   }
 
-
  //Get location
  const getLocation = async () => {
-
-
-  //Safari check locations
-  navigator.geolocation.getCurrentPosition(showMap);
-
-  function showMap(position) {
-    console.log('Hello');
-  }
-  /////////
 
   setLoading(true);
   if(animationDestroyed){
     loaderAnim();
   }
 
+  var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
+  if(isSafari){
+
+  //Safari
+  function getPosition() {
+    return new Promise((res, rej) => {
+        navigator.geolocation.getCurrentPosition(res, rej);
+    });
+  }
+
+  function main() {
+    getPosition().then((res) => {
+      setLoading(false);
+      const currentLocation = res.coords;
+      console.log(`https://api.openweathermap.org/data/2.5/onecall?lat=${currentLocation.latitude}&lon=${currentLocation.longitude}&units=imperial&appid=${apiKey}`);
+      getWeather(currentLocation);
+      setUsingCurrentLocation(true);
+    })
+  }
+
+  main();
+
+}else{
+
+  //Chrome
   //Get current location
   await navigator.geolocation.getCurrentPosition((position)=> {
     setLoading(false);
@@ -154,6 +177,7 @@ function App() {
     setUsingCurrentLocation(true);
   })
 
+  }
  }
 
   //Get custom location
