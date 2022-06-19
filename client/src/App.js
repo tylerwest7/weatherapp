@@ -36,6 +36,10 @@ function App() {
   const cloudy = require('../src/svg/cloudy.json');
   const rainy = require('../src/svg/rainy.json');
 
+  //Browsers
+  var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
+  var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
   //Submit custom data
   const onSubmit = (e) => {
     e.preventDefault();
@@ -87,8 +91,6 @@ function App() {
   const checkPermissions = () => {
 
     //Check if browser is safari or chrome
-    var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
-    var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
     if(isSafari){
       console.log('Browser is safari');
@@ -131,8 +133,7 @@ function App() {
     loaderAnim();
   }
 
-  var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
-  if(isSafari){
+  if(isSafari || isMobile){
 
  const checkLocationStatus = () => {
   navigator.geolocation.watchPosition(function(position) {
